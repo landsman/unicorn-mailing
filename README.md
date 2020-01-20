@@ -10,7 +10,7 @@
 3. git commit, push and go to Actions tab in your github repository, like [mine](https://github.com/landsman/unicorn-mailing)
 4. wait until end of build and you would find 1 Artifacts with zip there
 
-@todo: example
+![Example](./.github/example.png)
 
 ## Reading list
 
