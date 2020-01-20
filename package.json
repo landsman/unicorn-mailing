@@ -1,0 +1,31 @@
+{
+  "name": "@landsman/unicorn-mailing",
+  "version": "1.0.0",
+  "description": "pretty email templates with automated build",
+  "main": "build.js",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/landsman/unicorn-mailing.git"
+  },
+  "keywords": [
+    "mailgun",
+    "css",
+    "template",
+    "mailing",
+    "mailchimp",
+    "mailkit"
+  ],
+  "author": "Michal Landsman <landsman@studioart.cz>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/landsman/unicorn-mailing/issues"
+  },
+  "homepage": "https://github.com/landsman/unicorn-mailing",
+  "dependencies": {
+    "glob": "^7.1.6",
+    "juice": "^6.0.0"
+  }
+}

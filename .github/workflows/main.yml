@@ -1,0 +1,30 @@
+name: build templates
+on: push
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+
+      # Environment setup
+      - name: Pull source code
+        uses: actions/checkout@master
+
+      - name: Set Node.js
+        uses: actions/setup-node@master
+        with:
+          node-version: 10.x
+
+      # Build
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build templates
+        run: npm run build
+
+      # Put templates to zip
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: templates-production
+          path: build
