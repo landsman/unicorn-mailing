@@ -40,9 +40,9 @@ const diskPagesRelativePaths = diskPages.reduce((acc, item) => {
 }, []);
 
 if(countExists === processed){
-    console.info('🛑 Processed all ' + processed + ' from ' + countExists + ' templates');
+    console.info('✔ Processed all ' + processed + ' from ' + countExists + ' templates');
 }else {
-    console.error('✔️ Processed only ' + processed + ' from ' + countExists + ' templates!');
+    console.error('🛑️ Processed only ' + processed + ' from ' + countExists + ' templates!');
 }
 
 function ensureDirectoryExistence(filePath) {
