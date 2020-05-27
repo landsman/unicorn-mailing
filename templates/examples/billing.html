@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Billing e.g. invoices and receipts</title>
+    <title>{{subject}}</title>
     <style type="text/css">
     /* -------------------------------------
         GLOBAL
@@ -301,7 +301,7 @@
                             <table width="100%" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td class="content-block">
-                                        <h1 class="aligncenter">$33.98 Paid</h1>
+                                        <h1 class="aligncenter">$ {{amount}} Paid</h1>
                                     </td>
                                 </tr>
                                 <tr>
@@ -313,26 +313,26 @@
                                     <td class="content-block aligncenter">
                                         <table class="invoice">
                                             <tr>
-                                                <td>Lee Munroe<br>Invoice #12345<br>June 01 2014</td>
+                                                <td>Lee Munroe<br>Invoice #{{variable_symbol}}<br>{{date}}</td>
                                             </tr>
                                             <tr>
                                                 <td>
                                                     <table class="invoice-items" cellpadding="0" cellspacing="0">
+
+                                                        {{#each items}}
                                                         <tr>
-                                                            <td>Service 1</td>
-                                                            <td class="alignright">$ 19.99</td>
+                                                            <td>
+                                                                <h3>{{this.name}}</h3>
+                                                            </td>
+                                                            <td class="alignright">
+                                                                <h3>$ {{this.amount}}</h3>
+                                                            </td>
                                                         </tr>
-                                                        <tr>
-                                                            <td>Service 2</td>
-                                                            <td class="alignright">$ 9.99</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Service 3</td>
-                                                            <td class="alignright">$ 4.00</td>
-                                                        </tr>
+                                                        {{/each}}
+
                                                         <tr class="total">
                                                             <td class="alignright" width="80%">Total</td>
-                                                            <td class="alignright">$ 33.98</td>
+                                                            <td class="alignright">$ {{amount}}</td>
                                                         </tr>
                                                     </table>
                                                 </td>
