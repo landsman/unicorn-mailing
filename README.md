@@ -12,8 +12,23 @@
 
 ![Example](./.github/example.png)
 
+## Layouts
+
+Each template can have own layout. Default is `layouts/default.html`.
+Syntax for specify layout is:
+
+```
+    ---
+    layout: your-nice-layout
+    ---
+```
+
+This name is corresponding with file in folder `/layouts` without `.html` extension.
+Check the examples.
+
 ## Reading list
 
 - https://documentation.mailgun.com/en/latest/user_manual.html#templates
 - https://documentation.mailgun.com/en/latest/api-sending.html#sending
 - https://github.com/Automattic/juice
+- https://github.com/jxson/front-matter

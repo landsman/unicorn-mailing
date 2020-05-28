@@ -1,23 +1,19 @@
----
-layout: fancy
----
-
 <table width="100%" cellpadding="0" cellspacing="0">
 <tr>
     <td class="content-block">
-        <h1 class="aligncenter">$ {{amount}} Paid</h1>
+        <h1 class="aligncenter">{{amount}} Kč Paid</h1>
     </td>
 </tr>
 <tr>
     <td class="content-block">
-        <h2 class="aligncenter">Thanks for using Acme Inc.</h2>
+        <h2 class="aligncenter">Děkujeme, že používáte Acme Inc.</h2>
     </td>
 </tr>
 <tr>
     <td class="content-block aligncenter">
         <table class="invoice">
             <tr>
-                <td>Bruce Wayne<br>Invoice #{{variable_symbol}}<br>{{date}}</td>
+                <td>Bruce Wayne<br>Faktura #{{variable_symbol}}<br>{{date}}</td>
             </tr>
             <tr>
                 <td>
@@ -35,8 +31,8 @@ layout: fancy
                         {{/each}}
 
                         <tr class="total">
-                            <td class="alignright" width="80%">Total</td>
-                            <td class="alignright">$ {{amount}}</td>
+                            <td class="alignright" width="80%">Celkem</td>
+                            <td class="alignright">{{amount}} Kč</td>
                         </tr>
                     </table>
                 </td>
@@ -46,7 +42,7 @@ layout: fancy
 </tr>
 <tr>
     <td class="content-block aligncenter">
-        <a href="http://www.mailgun.com">View in browser</a>
+        <a href="http://www.mailgun.com">Zobrazit v prohlížeči</a>
     </td>
 </tr>
 <tr>
