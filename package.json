@@ -25,6 +25,8 @@
   },
   "homepage": "https://github.com/landsman/unicorn-mailing",
   "dependencies": {
+    "front-matter": "^4.0.1",
+    "fs-extra": "^9.0.0",
     "glob": "^7.1.6",
     "juice": "^6.0.0"
   }
