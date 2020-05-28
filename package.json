@@ -19,7 +19,7 @@
     "mailkit"
   ],
   "author": "Michal Landsman <landsman@studioart.cz>",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/landsman/unicorn-mailing/issues"
   },
