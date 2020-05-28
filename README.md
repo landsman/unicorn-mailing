@@ -18,9 +18,9 @@ Each template can have own layout. Default is `layouts/default.html`.
 Syntax for specify layout is:
 
 ```
-    ---
-    layout: your-nice-layout
-    ---
+---
+layout: your-nice-layout
+---
 ```
 
 This name is corresponding with file in folder `/layouts` without `.html` extension.
