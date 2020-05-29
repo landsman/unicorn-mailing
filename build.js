@@ -87,14 +87,15 @@ function pageLayoutCheck(pageHtml, filePath)
 {
     let page = fm(pageHtml);
     let layout = page.attributes.layout || defaultLayout;
-    loadLayoutData(layout, page.body, filePath);
+    let subject = page.attributes.subject || null;
+    loadLayoutData(layout, subject, page.body, filePath);
 }
 
 
 //
 // merge template with layout and do inline-css
 //
-function loadLayoutData(layoutName, pageHtml, filePath)
+function loadLayoutData(layoutName, subject, pageHtml, filePath)
 {
     let layoutPath = path.join(sourceLayouts, layoutName + '.html');
 
@@ -109,8 +110,12 @@ function loadLayoutData(layoutName, pageHtml, filePath)
             console.error(err);
         }
 
-        const finalHtml = layoutHtml.replace(replacement, pageHtml);
-        inlineCSS(finalHtml, filePath);
+        if(null !== subject){
+            layoutHtml = layoutHtml.replace("<title>", "<title>" + subject + " ");
+        }
+
+        pageHtml = layoutHtml.replace(replacement, pageHtml);
+        inlineCSS(pageHtml, filePath);
     });
 }
 
