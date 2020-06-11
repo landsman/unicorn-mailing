@@ -3,10 +3,15 @@ const path = require('path');
 const glob = require('glob');
 const juice = require('juice');
 const fm = require('front-matter');
+const util = require('util');
+const getStylesheetList = require('list-stylesheets');
 
 //
 // config
 //
+
+// Convert fs.readFile into Promise version of same
+const readFilePromise = util.promisify(fs.readFile);
 const destination = process.env.DESTINATION || path.join(__dirname, 'build');
 const sourceTemplates = process.env.SOURCE || path.join(__dirname, 'templates', '/**/!(_*).html');
 const sourceLayouts = process.env.LAYOUTS || path.join(__dirname, 'layouts');
@@ -54,7 +59,6 @@ function dist()
 
     const diskPagesRelativePaths = diskPages.reduce((acc, item) =>
     {
-
         const relativePath = item.split('/templates').slice(-1)[0];
         fs.readFile(item, 'utf8', function(err, data)
         {
@@ -123,11 +127,37 @@ function loadLayoutData(layoutName, subject, pageHtml, filePath)
 //
 // convert <style> to inline css on each element
 //
-function inlineCSS(data, filePath)
-{
-    let html = juice(data);
-    saveDist(filePath, html);
+async function inlineCSS(data, filePath) {
+    const fileParser = getStylesheetList(data, {
+        applyLinkTags: true,
+        removeLinkTags: true
+    });
+
+    const allCss = await getCssContent(fileParser.hrefs);
+    const finalHtml = juice.inlineContent(fileParser.html, allCss);
+
+    saveDist(filePath, finalHtml);
 }
+
+//
+// read css files content and merge them to one string
+//
+async function getCssContent(filesArray) {
+    let output = "";
+    for (const file of filesArray) {
+        output += await readFile(file);
+        output += "\n\n"
+    }
+
+    return output;
+}
+
+//
+// async file reading handler
+//
+const readFile = async (path) => {
+    return await readFilePromise(path);
+};
 
 
 //
@@ -140,6 +170,7 @@ function saveDist(filePath, data)
     // finally save
     fs.writeFileSync(filePath, data);
 }
+
 
 //
 // file system helper

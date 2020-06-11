@@ -26,6 +26,12 @@ layout: your-nice-layout
 This name is corresponding with file in folder `/layouts` without `.html` extension.
 Check the examples.
 
+## Sending via Mailgun
+
+- [prepared example for NodeJS](/.doc/example-nodejs)
+- [prepared example for PHP](./doc/example-php)
+- you can also write your integration by own, [follow Mailgun's doc](https://documentation.mailgun.com/en/latest/api-sending.html#sending).
+
 ## Reading list
 
 - https://documentation.mailgun.com/en/latest/user_manual.html#templates
