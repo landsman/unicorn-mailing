@@ -1,0 +1,77 @@
+/*
+
+These styles will be placed inline, before the email body, like in <head> of HTML
+
+*/
+
+
+/************************ only for mobile devices ************************/
+@media only screen and (max-width: 600px) {
+  .d-none-m, .col-hero-img-right {
+    display: none;
+  }
+
+  .w-100-m, .col-hero-img-left {
+    width: 100% !important;
+  }
+
+  .text-center-m {
+    text-align: center;
+  }
+
+  .ml-auto-m {
+    margin-left: auto !important;
+  }
+
+  .mr-auto-m {
+    margin-right: auto !important;
+  }
+
+  .container {
+    border-radius: 0 !important;
+    margin-top: 0 !important;
+  }
+
+  .yellow-button {
+    padding: 10px 8px !important;
+  }
+
+  .text-right {
+    text-align: center;
+  }
+
+  .signature--left {
+    min-height: 50px;
+  }
+}
+
+.yellow-button:hover {
+  filter: brightness(90%);
+  text-shadow: rgb(255, 217, 127) 0px 2px 1px;
+  border-bottom-color: rgb(255, 191, 39);
+}
+
+/************************ content wrapper on mobile ************************/
+@media only screen and (max-width: 300px) {
+  .container {
+    padding: 10px !important;
+  }
+}
+
+/************************ signature on mobile ************************/
+@media only screen and (max-width: 400px) {
+  .signature {
+    text-align: center;
+  }
+
+  .signature--left {
+    width: 100% !important;
+    max-width: 100% !important;
+    display: block;
+    margin-right: 0 !important;
+    padding-bottom: 25px;
+  }
+  .signature--right {
+    padding-top: 0 !important;
+  }
+}

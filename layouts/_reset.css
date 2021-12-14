@@ -1,0 +1,85 @@
+/* GLOBAL A very basic CSS reset*/
+#outlook a {
+    padding: 0;
+}
+
+.ReadMsgBody {
+    width: 100%;
+}
+
+.ExternalClass {
+    width: 100%;
+}
+
+/* Force Hotmail to display emails at full width */
+.ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass
+font, .ExternalClass td, .ExternalClass div {
+    line-height: 100%;
+}
+
+/* Force Hotmail to display normal line spacing */
+body, table, td, p, a, li, blockquote {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+
+/* Prevent WebKit and Windows mobile changing default text sizes */
+table, td {
+    mso-table-lspace: 0pt;
+    mso-table-rspace: 0pt;
+}
+
+/* Remove spacing between tables in Outlook 2007 and up */
+img {
+    -ms-interpolation-mode: bicubic;
+}
+
+/* Allow smoother rendering of resized image in Internet Explorer */
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+img {
+    border: 0;
+    height: auto;
+    line-height: 100%;
+    outline: none;
+    text-decoration: none;
+}
+
+table {
+    border-collapse: collapse !important;
+}
+
+body, #bodyTable, #bodyCell {
+    height: 100% !important;
+    margin: 0;
+    padding: 0;
+    width: 100% !important;
+}
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+img {
+    max-width: 100%;
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: none;
+    width: 100% !important;
+    height: 100%;
+    line-height: 1.6em;
+    /* 1.6em * 14px = 22.4px, use px to get airier line-height also in Thunderbird, and Yahoo!, Outlook.com, AOL webmail clients */
+    /*line-height: 22px;*/
+}
+
+/* Let's make sure all tables have defaults */
+table td {
+    vertical-align: top;
+}
