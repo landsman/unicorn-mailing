@@ -3,8 +3,12 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="./layouts/_reset.css"/>
+    <link rel="stylesheet" href="./layouts/_shared.css"/>
+    <link rel="stylesheet" href="./layouts/_sharedHeadStyles.css" class="inlineCssReplacement" />
+    <style id="inlineCssReplacement" />
+    <style id="cssReplacement" />
     <title>{{subject}}</title>
-    <link rel="stylesheet" href="./layouts/shared.css" />
 </head>
 
 <body itemscope itemtype="http://schema.org/EmailMessage">
@@ -18,10 +22,13 @@
                     <tr>
                         <td class="content-wrap aligncenter">
 
-                            <h1>DEFAULT LAYOUT</h1>
+                            <h1>FANCY LAYOUT</h1>
 
                             <!-- This part will be replaced -->
-                            <hr id="replacement" />
+                            <div class="container">
+                                <hr id="replacement" />
+                                <hr id="signature" />
+                            </div>
                             <!-- / -->
 
                         </td>
@@ -30,7 +37,7 @@
                 <div class="footer">
                     <table width="100%">
                         <tr>
-                            <td class="aligncenter content-block">Questions? Email <a href="mailto:">support@acme.inc</a></td>
+                            <td class="aligncenter content-block">Otázky? Napište nám <a href="mailto:">batman@gotham.com</a></td>
                         </tr>
                     </table>
                 </div>

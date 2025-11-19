@@ -1,0 +1,120 @@
+name: build PR templates
+on:
+  pull_request:
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  pull-request:
+    runs-on: ubuntu-latest
+    env:
+      RELEASE_VERSION: pr-${{ github.event.number }}
+      PROJECT_NAME: unicorn-mailing
+      GCP_BUCKET: ${{ secrets.PRODUCTION_GCP_BUCKET }}
+      GCP_SA_KEY: ${{ secrets.PRODUCTION_GCP_SA_KEY }}
+      GCP_URL_MAP_NAME: web-cdn-production
+      BUILD_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+    steps:
+
+      - name: 'Send working message to PR as comment'
+        uses: marocchino/sticky-pull-request-comment@v1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          recreate: true
+          message: |
+            ⏳ Starting build, please wait ...
+
+            ---
+
+            _You can watch progress on [build URL](${{ env.BUILD_URL }})_
+
+      # Environment setup
+      - name: 'Pull source code'
+        uses: actions/checkout@master
+
+      - name: 'Set Node.js'
+        uses: actions/setup-node@master
+        with:
+          node-version: 10.x
+
+      # Build
+      - name: 'Install dependencies'
+        run: npm install
+
+      - name: 'Build templates'
+        env:
+          STATUS: production
+          RELEASE_VERSION: ${{ env.RELEASE_VERSION }}
+          GCP_BUCKET: ${{ env.GCP_BUCKET }}
+        run: npm run build
+
+      # Put templates to zip
+      - name: 'Archive artifacts'
+        uses: actions/upload-artifact@v1
+        with:
+          name: templates-pull-request
+          path: build
+
+      - name: 'Google Cloud setup'
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          version: '306.0.0'
+          project_id: unicorn-mailing
+          service_account_key: ${{ env.GCP_SA_KEY }}
+          export_default_credentials: true
+
+      - name: 'Build rsync to GCP bucket'
+        run: |
+          gsutil -q \
+            rsync -r -d -j html,png,css \
+            build/${{ env.RELEASE_VERSION }} gs://${{ env.GCP_BUCKET }}/${{ env.RELEASE_VERSION }}
+
+      - name: 'Invalidate cache in GCP bucket'
+        run: |
+          gcloud compute url-maps invalidate-cdn-cache ${{ env.GCP_URL_MAP_NAME }} \
+              --host ${{ env.GCP_BUCKET }} \
+              --path "/${{ env.RELEASE_VERSION }}/*"
+
+      - name: 'List bucket'
+        id: bucket
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+          BUCKET_PATH: ${{ env.GCP_BUCKET }}/${{ env.RELEASE_VERSION }}
+        run: |
+          gsutil ls gs://${{ env.BUCKET_PATH }}/**.html | \
+            sed 's|gs:|https:|g' > list1.txt
+
+          while IFS= read -r line; \
+            do echo "- [$(echo $line | sed 's|https://${{ env.BUCKET_PATH }}/||g')]($line)" >> list2.txt; \
+            done < list1.txt
+
+          OUTPUT=$(cat list2.txt)
+          OUTPUT="${OUTPUT//'%'/'%25'}​"
+          OUTPUT="${OUTPUT//$'\n'/'%0A'}"
+          OUTPUT="${OUTPUT//$'\r'/'%0D'}"
+          echo "::set-output name=LIST_BUCKET::$OUTPUT"
+
+      - name: 'Send URL address to PR as comment'
+        uses: marocchino/sticky-pull-request-comment@v1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          recreate: true
+          message: |
+            👍 **Build done!**
+
+            Templates preview:
+
+            ${{ steps.bucket.outputs.LIST_BUCKET }}
+
+      - name: 'The job has failed'
+        if: ${{ failure() }}
+        uses: marocchino/sticky-pull-request-comment@v1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          recreate: true
+          message: |
+            🔥 **Build failed**
+
+            ---
+
+            _Please check logs on [build URL](${{ env.BUILD_URL }})_
