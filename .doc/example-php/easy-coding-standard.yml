@@ -1,0 +1,11 @@
+imports:
+    - { resource: 'vendor/symplify/easy-coding-standard/config/symfony.yml' }
+
+parameters:
+    indentation: tab # "spaces" by default
+    exclude_checkers:
+        # from PHP CS Fixer Symfony set
+        - 'PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer'
+        - 'PhpCsFixer\Fixer\Operator\NewWithBracesFixer'
+        - 'PhpCsFixer\Fixer\Phpdoc\PhpdocAlignFixer'
+        - 'PhpCsFixer\Fixer\Operator\UnaryOperatorSpacesFixer'
